@@ -26,12 +26,35 @@ jobs:
           python -m pytest -q
 
       - name: Zip artifact
-        run: zip -r app.zip . -x "*.git*"
+        run: |
+          zip -r app.zip . -x ".git/*" ".github/*" ".venv/*" "tests/*"
 
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          # >>> NIMM GENAU DEINEN HOST-PRÄFIX MIT SUFFIX (aus der URL/PublishProfile)
-          app-name: flos-diary-app-we-avatfyc6gshjfne7
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: app.zip
+      # Direkter ZIP-Deploy zur Kudu-API mit den Zugangsdaten aus dem Publish Profile
+      - name: Deploy via Kudu ZIP API (publish profile)
+        shell: bash
+        env:
+          PUBLISH_PROFILE: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
+        run: |
+          python - <<'PY'
+          import os, sys, xml.etree.ElementTree as ET, subprocess
+          xml = os.environ['PUBLISH_PROFILE']
+          root = ET.fromstring(xml)
+          prof = None
+          for p in root.findall('.//publishProfile'):
+              method = p.attrib.get('publishMethod','').lower()
+              if method in ('msdeploy','zipdeploy','webdeploy'):
+                  prof = p; break
+          if not prof:
+              print("No MSDeploy/ZipDeploy profile found", file=sys.stderr)
+              sys.exit(1)
+
+          publishUrl = prof.attrib['publishUrl']   # <app>.scm.spaincentral-01.azurewebsites.net:443
+          host = publishUrl.split(':')[0]
+          user = prof.attrib['userName']
+          pwd  = prof.attrib['userPWD']
+          url  = f"https://{host}/api/zipdeploy"
+
+          print(f"Deploying to {url}")
+          r = subprocess.run(['curl','-sS','-u', f'{user}:{pwd}', '-X','POST', url, '--data-binary','@app.zip'])
+          sys.exit(r.returncode)
+          PY
