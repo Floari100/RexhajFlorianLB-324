@@ -51,18 +51,18 @@ Entwickelt nach Git-Workflow (**dev → PR-Checks → main**) mit **CI/CD nach A
 
 ## 🗂 Projektstruktur
 
-├── app.py # Flask-App (WSGI: app)
-├── templates/
-│ └── index.html
-├── tests/
-│ └── test_add_entry_with_happiness.py
-├── requirements.txt
-├── .pre-commit-config.yaml
-├── .github/
-│ └── workflows/
-│ ├── deploy-on-main.yml # Deploy (main)
-│ └── pr-checks.yml # PR-Checks (dev)
-└── README.md
+├── app.py # Flask-App (WSGI: app)                                  
+├── templates/                                              
+│ └── index.html                                         
+├── tests/                                     
+│ └── test_add_entry_with_happiness.py                                     
+├── requirements.txt                                     
+├── .pre-commit-config.yaml                                     
+├── .github/                                     
+│ └── workflows/                                     
+│ ├── deploy-on-main.yml # Deploy (main)                                     
+│ └── pr-checks.yml # PR-Checks (dev)                                     
+└── README.md                                     
 
 ### 1) Setup
 ```bash
