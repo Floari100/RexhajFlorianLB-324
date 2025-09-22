@@ -139,5 +139,6 @@ Azure → *Konfiguration → Allgemeine Einstellungen*:
 - **Startbefehl:**
   ```bash
   gunicorn --bind=0.0.0.0 --timeout 600 app:app
+<img width="1432" height="647" alt="image" src="https://github.com/user-attachments/assets/cb349fde-fe4a-4056-86b0-a03a6a732e7f" />
 
-  <img width="1418" height="647" alt="image" src="https://github.com/user-attachments/assets/d5ac9b33-62ec-4c26-b5e6-6b47c5cf093b" />
+  
