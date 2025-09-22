@@ -169,6 +169,8 @@ Nach Änderungen Speichern + Neu starten
 <img width="1432" height="647" alt="image" src="https://github.com/user-attachments/assets/cb349fde-fe4a-4056-86b0-a03a6a732e7f" />
 <img width="1439" height="607" alt="image" src="https://github.com/user-attachments/assets/87fce263-59fb-4577-8f0a-410b47527f42" />
 <img width="1263" height="250" alt="image" src="https://github.com/user-attachments/assets/b1e1cfc5-1330-4047-b6cd-a5d97d16960d" />
+<img width="1263" height="349" alt="image" src="https://github.com/user-attachments/assets/cb6069cc-2e17-4f9f-bf6b-8751f879c0ba" />
+
 
 
 
