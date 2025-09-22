@@ -14,3 +14,4 @@ Diese Ablage ist **1:1** auf die **LB‑324** abgestimmt.
 - PASSWORD via App Settings, Publish Profile als Secret.
 - Test `test_add_entry_with_happiness.py` vorhanden.
 # Setup ok ✅
+
