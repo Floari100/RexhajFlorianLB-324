@@ -97,7 +97,7 @@ pip install pre-commit
 pre-commit install
 pre-commit install --hook-type pre-push
 
-## Git-Workflow
+**Git-Workflow**
 Feature‐Entwicklung: Branch von dev
 PR nach dev: PR-Checks (Tests) müssen grün sein
 Merge nach main: triggert Deploy zur Azure-App
@@ -107,7 +107,7 @@ git checkout -b feature/xyz dev
 git push -u origin feature/xyz
  PR auf GitHub -> dev
 
-## CI/CD-Pipeline
+**CI/CD-Pipeline**
 PR Checks (dev)
 - Setup Python
 - pip install -r requirements.txt
@@ -137,8 +137,39 @@ Azure → *Konfiguration → Allgemeine Einstellungen*:
 - **Hauptversion:** 3  
 - **Nebenversion:** **3.11**
 - **Startbefehl:**
-  ```bash
+
   gunicorn --bind=0.0.0.0 --timeout 600 app:app
+
+## 🔐 Secrets (GitHub)
+GitHub-Repo → Settings → Secrets and variables → Actions:
+AZURE_WEBAPP_PUBLISH_PROFILE = komplette XML-Datei aus Azure („Veröffentlichungsprofil herunterladen“)
+Hinweis: Nach der Benotung in Azure „Veröffentlichungsprofil zurücksetzen“ und Secret erneuern.
+
+**🏷 Releases & SemVer**
+Versionierung nach Semantic Versioning: MAJOR.MINOR.PATCH
+Erstes Release:
+git tag -a v1.0.0 -m "LB-324 Release v1.0.0"
+git push origin v1.0.0
+Release-Notes im GitHub-UI: Features, CI/CD, Live-URL
+
+**🧯 Troubleshooting**
+„Publish profile is invalid for app-name…“ (Actions)
+Ursache: strenger Abgleich von app-name ↔ Profil bei bestimmten Azure-Stamps
+Lösung: Workflow nutzt ZipDeploy über Kudu-API (kein Abgleich nötig)
+„Application Error“ (Seite)
+App Settings prüfen:
+SCM_DO_BUILD_DURING_DEPLOYMENT=1, ENABLE_ORYX_BUILD=true
+Startup Command prüfen:
+gunicorn --bind=0.0.0.0 --timeout 600 app:app
+Diagnose: Azure → Log stream
+Login schlägt fehl
+PASSWORD in Azure korrekt gesetzt?
+Nach Änderungen Speichern + Neu starten
+
 <img width="1432" height="647" alt="image" src="https://github.com/user-attachments/assets/cb349fde-fe4a-4056-86b0-a03a6a732e7f" />
+<img width="1439" height="607" alt="image" src="https://github.com/user-attachments/assets/87fce263-59fb-4577-8f0a-410b47527f42" />
+<img width="1263" height="250" alt="image" src="https://github.com/user-attachments/assets/b1e1cfc5-1330-4047-b6cd-a5d97d16960d" />
+
+
 
   
