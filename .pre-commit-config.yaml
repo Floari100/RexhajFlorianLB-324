@@ -1,19 +1,19 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 25.9.0
+    rev: 24.8.0
     hooks:
       - id: black
         language_version: python3
         stages: [pre-commit]
 
   - repo: https://github.com/pycqa/isort
-    rev: 6.0.1
+    rev: 5.13.2
     hooks:
       - id: isort
         stages: [pre-commit]
 
   - repo: https://github.com/pycqa/flake8
-    rev: 7.3.0
+    rev: 7.1.1
     hooks:
       - id: flake8
         stages: [pre-commit]
@@ -21,8 +21,8 @@ repos:
   - repo: local
     hooks:
       - id: pytest-on-push
-        name: pytest on push
-        entry: bash -lc "pytest -q"
+        name: pytest on push (venv)
+        entry: bash -lc 'cd "$(git rev-parse --show-toplevel)" && PYTHONPATH="$(pwd)" ./.venv/bin/python -m pytest -q'
         language: system
         pass_filenames: false
         stages: [pre-push]
